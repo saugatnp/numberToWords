@@ -5,7 +5,8 @@ var tens = ['', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eight
 
 
 function clicked(value) {
-    var text = numberToNepaliAlphabets(value)
+    var text = getText(value)
+    // var text = numberToNepaliAlphabets(value)
     const label = document.getElementById("text");
     label ? label.innerHTML = text : "";
 
@@ -27,6 +28,9 @@ function getText(value) {
     }
     if (value < 100000) {
         return getText(Math.floor(value / 1000)) + " thousand " + getText(value % 1000);
+    }
+    if (value < 10000000) {
+        return getText(Math.floor(value / 100000)) + " lakh " + getText(value % 100000);
     }
     return "";
 
@@ -54,6 +58,10 @@ function numberToNepaliAlphabets(num) {
     if (num < 1000) {
         return Nepaliones[Math.floor(num / 100)] + ' सय ' + numberToNepaliAlphabets(num % 100);
     }
+    if (num < 100000) {
+        return numberToNepaliAlphabets(Math.floor(num / 1000)) + " हजार " + numberToNepaliAlphabets(num % 1000);
+    }
+
 
    
 
