@@ -42,6 +42,13 @@ function getText(value) {
     if (value < 1000000000) {
         return getText(Math.floor(value / 10000000)) + " crore " + getText(value % 10000000);
     }
+    if (value < 100000000000) {
+        return getText(Math.floor(value / 1000000000)) + " arba " + getText(value % 1000000000);
+    }
+    if (value < 10000000000000) {
+        return getText(Math.floor(value / 100000000000)) + " kharba " + getText(value % 100000000000);
+    }
+
     return "";
 
 }
@@ -71,6 +78,13 @@ function numberToNepaliAlphabets(num) {
     if (num < 1000000000) {
         return numberToNepaliAlphabets(Math.floor(num / 10000000)) + " करोड " + numberToNepaliAlphabets(num % 10000000);
     }
+    if (num < 100000000000) {
+        return numberToNepaliAlphabets(Math.floor(num / 1000000000)) + " अर्ब " + numberToNepaliAlphabets(num % 1000000000);
+    }
+    if (num < 10000000000000) {
+        return numberToNepaliAlphabets(Math.floor(num / 100000000000)) + " खर्ब " + numberToNepaliAlphabets(num % 100000000000);
+    }
+
     return "";
 
 
