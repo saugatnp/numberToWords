@@ -3,7 +3,7 @@ var digits = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'ei
 var tenToTwenty = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
 var tens = ['', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
 
-var MAX_NUMBER = 999999999999999;
+var MAX_NUMBER = 9999999999999999;
 
 function clicked(value) {
     if (Number.isNaN(parseInt(value)) && value != undefined && value != '' && value.trim() !== '') {
@@ -12,13 +12,14 @@ function clicked(value) {
     else if(value > MAX_NUMBER){
         throw new RangeError("Number is too large");
     } 
-    //  var text = getText(value)
-     var text = numberToNepaliAlphabets(value)
+    //  var text = numberToNepaliRomanized(value)
+    //  var text = numberToNepaliAlphabets(value)
+     var text = numberToEnglishAlphabet(value)
      const label = document.getElementById("text");
      label ? label.innerHTML = text : "";
 
 }
-function getText(value) {
+function numberToNepaliRomanized(value) {
     if (value == 0 || value == undefined)
         return "";
     if (value < 10) {
@@ -28,25 +29,31 @@ function getText(value) {
         return tenToTwenty[value - 10];
     }
     if (value < 100) {
-        return tens[Math.floor(value / 10) - 1] + " " + getText(value % 10);
+        return tens[Math.floor(value / 10) - 1] + " " + numberToNepaliRomanized(value % 10);
     }
     if (value < 1000) {
-        return getText(Math.floor(value / 100)) + " hundred " + getText(value % 100);
+        return numberToNepaliRomanized(Math.floor(value / 100)) + " hundred " + numberToNepaliRomanized(value % 100);
     }
     if (value < 100000) {
-        return getText(Math.floor(value / 1000)) + " thousand " + getText(value % 1000);
+        return numberToNepaliRomanized(Math.floor(value / 1000)) + " thousand " + numberToNepaliRomanized(value % 1000);
     }
     if (value < 10000000) {
-        return getText(Math.floor(value / 100000)) + " lakh " + getText(value % 100000);
+        return numberToNepaliRomanized(Math.floor(value / 100000)) + " lakh " + numberToNepaliRomanized(value % 100000);
     }
     if (value < 1000000000) {
-        return getText(Math.floor(value / 10000000)) + " crore " + getText(value % 10000000);
+        return numberToNepaliRomanized(Math.floor(value / 10000000)) + " crore " + numberToNepaliRomanized(value % 10000000);
     }
     if (value < 100000000000) {
-        return getText(Math.floor(value / 1000000000)) + " arba " + getText(value % 1000000000);
+        return numberToNepaliRomanized(Math.floor(value / 1000000000)) + " arba " + numberToNepaliRomanized(value % 1000000000);
     }
     if (value < 10000000000000) {
-        return getText(Math.floor(value / 100000000000)) + " kharba " + getText(value % 100000000000);
+        return numberToNepaliRomanized(Math.floor(value / 100000000000)) + " kharba " + numberToNepaliRomanized(value % 100000000000);
+    }
+    if (value < 1000000000000000) {
+        return numberToNepaliRomanized(Math.floor(value / 10000000000000)) + " nil " + numberToNepaliRomanized(value % 10000000000000);
+    }
+    if (value < 100000000000000000) {
+        return numberToNepaliRomanized(Math.floor(value / 1000000000000000)) + " padma " + numberToNepaliRomanized(value % 1000000000000000);
     }
 
     return "";
@@ -84,6 +91,12 @@ function numberToNepaliAlphabets(num) {
     if (num < 10000000000000) {
         return numberToNepaliAlphabets(Math.floor(num / 100000000000)) + " खर्ब " + numberToNepaliAlphabets(num % 100000000000);
     }
+    if (num < 1000000000000000) {
+        return numberToNepaliAlphabets(Math.floor(num / 10000000000000)) + " नील " + numberToNepaliAlphabets(num % 10000000000000);
+    }
+    if (num < 100000000000000000) {
+        return numberToNepaliAlphabets(Math.floor(num / 1000000000000000)) + " पद्म " + numberToNepaliAlphabets(num % 1000000000000000);
+    }
 
     return "";
 
@@ -91,4 +104,39 @@ function numberToNepaliAlphabets(num) {
    
 
    
+}
+
+function numberToEnglishAlphabet(value){
+
+    if (value == 0 || value == undefined)
+        return "";
+    if (value < 10) {
+        return digits[value];
+    }
+    if (value < 20) {
+        return tenToTwenty[value - 10];
+    }
+    if (value < 100) {
+        return tens[Math.floor(value / 10) - 1] + " " + numberToNepaliRomanized(value % 10);
+    }
+    if (value < 1000) {
+        return numberToNepaliRomanized(Math.floor(value / 100)) + " hundred " + numberToNepaliRomanized(value % 100);
+    }
+    if (value < 1000000) {
+        return numberToNepaliRomanized(Math.floor(value / 1000)) + " thousand " + numberToNepaliRomanized(value % 1000);
+    }
+    if (value < 1000000000) {
+        return numberToNepaliRomanized(Math.floor(value / 1000000)) + " million " + numberToNepaliRomanized(value % 1000000);
+    }
+    if (value < 1000000000000) {
+        return numberToNepaliRomanized(Math.floor(value / 1000000000)) + " billion " + numberToNepaliRomanized(value % 1000000000);
+    }
+    if (value < 1000000000000000) {
+        return numberToNepaliRomanized(Math.floor(value / 1000000000000)) + " trillion " + numberToNepaliRomanized(value % 1000000000000);
+    }
+    if (value < 1000000000000000000) {
+        return numberToNepaliRomanized(Math.floor(value / 1000000000000000)) + " quadrillion " + numberToNepaliRomanized(value % 1000000000000000);
+    }
+    return "";
+
 }
